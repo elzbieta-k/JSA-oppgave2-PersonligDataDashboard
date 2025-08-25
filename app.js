@@ -51,6 +51,7 @@ const buildPage = (cards) => {
     categoryOutput.textContent = category;
     categoryOutput.style.display = "inline-block";
     const selectEl = document.createElement("select");
+    selectEl.id = "ny-category-select";
     selectEl.style.display = "none";
 
     for (let i = 0; i < categoriesValue.length; i++) {
@@ -63,13 +64,13 @@ const buildPage = (cards) => {
     //Amount
     const amountEl = document.createElement("input");
     amountEl.type = "number";
-    amountEl.readOnly = "true";
+    amountEl.readOnly = true;
     amountEl.value = amount;
 
     //Notes
     const notesEl = document.createElement("input");
-    notesEl.type = "textarea";
-    notesEl.readOnly = "true";
+    notesEl.type = "text";
+    notesEl.readOnly = true;
     notesEl.value = notes;
 
     cardContainer.append(
@@ -92,18 +93,36 @@ const editButton = (card, date, category, selectForm, amount, notes) => {
   editButton.textContent = "Edit";
 
   editButton.addEventListener("click", () => {
-    card.date = date.value;
-    date.readOnly = !date.readOnly;
+    console.log(selectForm);
+    if (date.readOnly) {
+      // EDIT MODE
+      date.readOnly = false;
+      amount.readOnly = false;
+      notes.readOnly = false;
 
-    category.style.display =
-      category.style.display === "inline-block" ? "none" : "inline-block";
-    selectForm.style.display =
-      selectForm.style.display === "inline-block" ? "none" : "inline-block";
+      category.style.display = "none";
+      selectForm.style.display = "inline-block";
 
-    card.category = selectForm.text;
+      editButton.textContent = "Save";
+    } else {
+      // SAVE MODE
+      card.date = date.value;
+      card.amount = amount.value;
+      card.notes = notes.value;
+      const newCategorySelected = selectForm;
+      card.category = newCategorySelected.value;
+      category.textContent =
+        newCategorySelected.options[newCategorySelected.selectedIndex].text;
+      date.readOnly = true;
+      amount.readOnly = true;
+      notes.readOnly = true;
 
-    editButton.textContent = date.readOnly ? "Edit" : "Save";
-    saveCardsToStorage();
+      category.style.display = "inline-block";
+      selectForm.style.display = "none";
+
+      editButton.textContent = "Edit";
+      saveCardsToStorage();
+    }
   });
   return editButton;
 };
