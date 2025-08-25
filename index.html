@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="no">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budsjett</title>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>SmartPenger</h1>
+      <form id="form">
+        <fieldset>
+          <legend>Logg your budsjett</legend>
+          <label for="date">Dato</label>
+          <input type="date" name="date" placeholder="velg dato" id="date" />
+          <label for="amount">Beløp</label>
+          <input type="number" min="0" name="amount" id="amount" />
+          <label for="category">Kategori:</label>
+          <select name="category" id="category" required>
+            <option value="food">Mat</option>
+            <option value="transport">Transport</option>
+            <option value="living">Bolig</option>
+          </select>
+          <label for="notes">Beskrivelse</label>
+          <input type="textarea" id="notes" name="notes" />
+          <input
+            type="submit"
+            name="submit-button"
+            value="Send"
+            id="submit-button"
+          />
+        </fieldset>
+      </form>
+    </header>
+    <main id="cards-container"></main>
+  </body>
+</html>
