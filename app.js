@@ -1,5 +1,8 @@
 const form = document.querySelector("#form");
 const cardsContainer = document.querySelector("#cards-container");
+const filterByMonthForm = document.querySelector("#filter-by-month");
+const monthInput = document.querySelector("#month");
+const totalInMonthOutput = document.querySelector("#output-text");
 
 const category = document.querySelector("#category");
 const categoriesValue = [...category.options].map((category) => category.value);
@@ -30,6 +33,27 @@ form.addEventListener("submit", (e) => {
 const saveCardsToStorage = () => {
   localStorage.setItem("budget", JSON.stringify(cards));
 };
+
+filterByMonthForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const formFilterData = new FormData(filterByMonthForm);
+  console.log(formFilterData);
+  const selectedMonth = parseInt(formFilterData.get("month"), 10);
+  console.log(selectedMonth);
+  const filteredCards = cards.filter((card) => {
+    const date = new Date(card.date);
+    return date.getMonth() === selectedMonth;
+  });
+
+  const totalAmount = filteredCards.reduce(
+    (acc, currentValue) => acc + Number(currentValue.amount),
+    0
+  );
+
+  totalInMonthOutput.textContent = `Måneds: ${totalAmount}`;
+  buildPage(filteredCards);
+});
 
 const buildPage = (cards) => {
   cardsContainer.replaceChildren();
@@ -129,8 +153,8 @@ const editButton = (card, date, category, selectForm, amount, notes) => {
 
 const deleteButton = (card) => {
   const deleteButton = document.createElement("button");
-  deleteButton.className.add = "delete-button";
-  deleteButton.textContent = "X";
+  deleteButton.classList.add("delete-button");
+  deleteButton.textContent = "Delete";
 
   deleteButton.addEventListener("click", () => {
     const cardIndex = cards.indexOf(card);
