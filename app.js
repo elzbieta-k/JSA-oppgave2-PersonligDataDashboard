@@ -100,7 +100,7 @@ categoryInput.addEventListener("change", () => {
     (acc, currentValue) => acc + Number(currentValue.amount),
     0
   );
-  console.log(totalInCategory);
+
   categoryOutputText.textContent = `Kategori utgifter: ${totalInCategory}`;
 
   buildPage(filteredCardsCategory);
@@ -174,7 +174,6 @@ const editButton = (card, date, category, selectForm, amount, notes) => {
   editButton.textContent = "Rediger";
 
   editButton.addEventListener("click", () => {
-    console.log(selectForm);
     if (date.readOnly) {
       // EDIT MODE
       date.readOnly = false;
