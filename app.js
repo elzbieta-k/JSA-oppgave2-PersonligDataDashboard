@@ -1,19 +1,20 @@
 const form = document.querySelector("#form");
 const cardsContainer = document.querySelector("#cards-container");
 const filterByMonthForm = document.querySelector("#filter-by-month");
-const monthInput = document.querySelector("#month");
+const monthInput = document.querySelector("#month-select");
 const totalInMonthOutput = document.querySelector("#output-text");
-const sortForm = document.querySelector("#sort");
+const sortForm = document.querySelector("#sort-select");
 const categoryInput = document.querySelector("#category-selected");
 const categoryOutputText = document.querySelector("#output-category");
 const resetBtn = document.querySelector(".reset-button");
 
-const category = document.querySelector("#category");
+const category = document.querySelector("#category-input");
 const categoriesValue = [...category.options].map((category) => category.value);
 const categoriesText = [...category.options].map((category) => category.text);
 
 let cards = [];
 
+//Getting values from the user and saving to cards array, sending to localStorage
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -29,23 +30,25 @@ form.addEventListener("submit", (e) => {
     category: categoryInput,
     notes: notesInput,
   });
-  console.log(cards);
+
   saveCardsToStorage();
   renderPage();
 });
 
+//Function to send data to localStorage
 const saveCardsToStorage = () => {
   localStorage.setItem("budget", JSON.stringify(cards));
 };
 
+//Filtering data by month and sending total amount for chosen month
 filterByMonthForm.addEventListener("submit", (e) => {
   e.preventDefault();
   categoryOutputText.textContent = "";
+
   const formFilterData = new FormData(filterByMonthForm);
 
   const selectedMonth = parseInt(formFilterData.get("month"), 10);
   const selectedYear = parseInt(formFilterData.get("year"), 10);
-  console.log(selectedYear);
 
   const filteredCards = cards.filter((card) => {
     const date = new Date(card.date);
@@ -66,6 +69,7 @@ filterByMonthForm.addEventListener("submit", (e) => {
   buildPage(filteredCards);
 });
 
+//Sorting data by date in ascending or decending order
 sortForm.addEventListener("change", () => {
   categoryOutputText.textContent = "";
   totalInMonthOutput.textContent = "";
@@ -83,6 +87,7 @@ sortForm.addEventListener("change", () => {
   buildPage(sortedCards);
 });
 
+// Filtering data by category and sending total amount for chosen category
 categoryInput.addEventListener("change", () => {
   totalInMonthOutput.textContent = "";
   const categorySelected = categoryInput.value;
@@ -100,6 +105,8 @@ categoryInput.addEventListener("change", () => {
 
   buildPage(filteredCardsCategory);
 });
+
+//Function that builds the page
 const buildPage = (cards) => {
   cardsContainer.replaceChildren();
 
@@ -112,6 +119,7 @@ const buildPage = (cards) => {
     //Date
     const dateEl = document.createElement("input");
     dateEl.type = "date";
+    dateEl.name = "date-output";
     dateEl.readOnly = "true";
     dateEl.value = date;
 
@@ -119,8 +127,9 @@ const buildPage = (cards) => {
     const categoryOutput = document.createElement("span");
     categoryOutput.textContent = category;
     categoryOutput.style.display = "inline-block";
+
     const selectEl = document.createElement("select");
-    selectEl.id = "ny-category-select";
+    selectEl.name = "ny-category-name";
     selectEl.style.display = "none";
 
     for (let i = 0; i < categoriesValue.length; i++) {
@@ -133,12 +142,14 @@ const buildPage = (cards) => {
     //Amount
     const amountEl = document.createElement("input");
     amountEl.type = "number";
+    amountEl.name = "amount-output";
     amountEl.readOnly = true;
     amountEl.value = amount;
 
     //Notes
     const notesEl = document.createElement("input");
     notesEl.type = "text";
+    notesEl.name = "notes-output";
     notesEl.readOnly = true;
     notesEl.value = notes;
 
@@ -156,6 +167,7 @@ const buildPage = (cards) => {
   });
 };
 
+//Function to edit chosen data
 const editButton = (card, date, category, selectForm, amount, notes) => {
   const editButton = document.createElement("button");
   editButton.classList.add("edit-button");
@@ -196,11 +208,14 @@ const editButton = (card, date, category, selectForm, amount, notes) => {
   return editButton;
 };
 
+//Reset all filters and getting the original data from localStorage
 resetBtn.addEventListener("click", () => {
   categoryOutputText.textContent = "";
   totalInMonthOutput.textContent = "";
   renderPage();
 });
+
+//Function to delete chosen data
 const deleteButton = (card) => {
   const deleteButton = document.createElement("button");
   deleteButton.classList.add("delete-button");
@@ -218,6 +233,8 @@ const deleteButton = (card) => {
 
   return deleteButton;
 };
+
+//Render page function that gets data from localStorage
 renderPage = () => {
   const storedCards = localStorage.getItem("budget");
 

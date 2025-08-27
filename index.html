@@ -23,10 +23,15 @@
         <form id="form">
           <fieldset>
             <legend>Legg til utgift</legend>
-            <label for="date">Dato:</label>
-            <input type="date" name="date" placeholder="velg dato" id="date" />
-            <label for="category">Kategori:</label>
-            <select name="category" id="category" required>
+            <label for="date-input">Dato:</label>
+            <input
+              type="date"
+              name="date"
+              placeholder="velg dato"
+              id="date-input"
+            />
+            <label for="category-input">Kategori:</label>
+            <select name="category" id="category-input" required>
               <option value="Dagligvarer">Dagligvarer</option>
               <option value="Transport">Transport</option>
               <option value="Bolig">Bolig</option>
@@ -34,10 +39,10 @@
               <option value="Regninger">Regninger</option>
               <option value="Gaver">Personlig</option>
             </select>
-            <label for="amount">Beløp:</label>
-            <input type="number" min="0" name="amount" id="amount" />
-            <label for="notes">Beskrivelse:</label>
-            <input type="textarea" id="notes" name="notes" />
+            <label for="amount-input">Beløp:</label>
+            <input type="number" min="0" name="amount" id="amount-input" />
+            <label for="notes-input">Beskrivelse:</label>
+            <input type="text" id="notes-input" name="notes" />
             <input
               type="submit"
               name="submit-button"
@@ -49,8 +54,8 @@
         <div class="select-container">
           <div class="select-by-month">
             <form id="filter-by-month">
-              <label for="month">Velg måned:</label>
-              <select name="month" id="month">
+              <label for="month-select">Velg måned:</label>
+              <select name="month" id="month-select">
                 <option value="0">Januar</option>
                 <option value="1">Februar</option>
                 <option value="2">Mars</option>
@@ -64,7 +69,8 @@
                 <option value="10">November</option>
                 <option value="11">Desember</option>
               </select>
-              <select name="year" id="year">
+              <label for="year-select">År:</label>
+              <select name="year" id="year-select">
                 <option value="2024">2024</option>
                 <option value="2025">2025</option>
               </select>
@@ -76,7 +82,11 @@
           </div>
           <div id="select-by-category">
             <label for="category-selected">Kategori:</label>
-            <select name="category-selected" id="category-selected" required>
+            <select
+              name="category-selected-name"
+              id="category-selected"
+              required
+            >
               <option value="Dagligvarer">Dagligvarer</option>
               <option value="Transport">Transport</option>
               <option value="Bolig">Bolig</option>
@@ -89,8 +99,8 @@
             </div>
           </div>
           <div class="sort-form">
-            <label for="sort">Sorter etter:</label>
-            <select id="sort">
+            <label for="sort-select">Sorter etter:</label>
+            <select id="sort-select" name="sort">
               <option value="date-asc">Dato ↑</option>
               <option value="date-desc">Dato ↓</option>
             </select>

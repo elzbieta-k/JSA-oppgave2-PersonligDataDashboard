@@ -75,7 +75,8 @@ input[type="number"] {
 input[type="date"] {
   width: 110px;
   height: 30px;
-  background-color: transparent;
+  background-color: #fff;
+  border-radius: 4px;
 }
 
 input[type="text"] {
@@ -104,26 +105,25 @@ select#ny-category-select {
   color: #333745;
 }
 
-select#month,
-select#year,
-select#category,
-select#sort,
+select#month-select,
+select#year-select,
+select#category-input,
+select#sort-select,
 select#category-selected {
   padding: 5px;
   font-family: "Lexend Deca", sans-serif;
   color: #333745;
 }
-input#amount {
-  background-color: #fff;
-}
-input#notes,
-input#amount {
+
+input#notes-input,
+input#amount-input {
   border: none;
   height: 30px;
   border-radius: 4px;
+  background-color: #fff;
 }
 
-input#notes {
+input#notes-input {
   outline: none;
   font-family: "Lexend Deca", sans-serif;
   color: #333745;
