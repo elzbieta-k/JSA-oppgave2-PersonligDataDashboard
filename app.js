@@ -3,6 +3,10 @@ const cardsContainer = document.querySelector("#cards-container");
 const filterByMonthForm = document.querySelector("#filter-by-month");
 const monthInput = document.querySelector("#month");
 const totalInMonthOutput = document.querySelector("#output-text");
+const sortForm = document.querySelector("#sort");
+const categoryInput = document.querySelector("#category-selected");
+const categoryOutputText = document.querySelector("#output-category");
+const resetBtn = document.querySelector(".reset-button");
 
 const category = document.querySelector("#category");
 const categoriesValue = [...category.options].map((category) => category.value);
@@ -36,14 +40,18 @@ const saveCardsToStorage = () => {
 
 filterByMonthForm.addEventListener("submit", (e) => {
   e.preventDefault();
-
+  categoryOutputText.textContent = "";
   const formFilterData = new FormData(filterByMonthForm);
-  console.log(formFilterData);
+
   const selectedMonth = parseInt(formFilterData.get("month"), 10);
-  console.log(selectedMonth);
+  const selectedYear = parseInt(formFilterData.get("year"), 10);
+  console.log(selectedYear);
+
   const filteredCards = cards.filter((card) => {
     const date = new Date(card.date);
-    return date.getMonth() === selectedMonth;
+    return (
+      date.getMonth() === selectedMonth && date.getFullYear() === selectedYear
+    );
   });
 
   const totalAmount = filteredCards.reduce(
@@ -51,10 +59,47 @@ filterByMonthForm.addEventListener("submit", (e) => {
     0
   );
 
-  totalInMonthOutput.textContent = `Måneds: ${totalAmount}`;
+  totalInMonthOutput.textContent =
+    totalAmount === 0
+      ? `Ingen registrerte utgifter denne måneden`
+      : `Månedens utgifter: ${totalAmount}`;
   buildPage(filteredCards);
 });
 
+sortForm.addEventListener("change", () => {
+  categoryOutputText.textContent = "";
+  totalInMonthOutput.textContent = "";
+
+  const sortSelected = sortForm.value;
+
+  let sortedCards = [...cards];
+
+  if (sortSelected === "date-asc") {
+    sortedCards.sort((a, b) => new Date(a.date) - new Date(b.date));
+  } else if (sortSelected === "date-desc") {
+    sortedCards.sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+
+  buildPage(sortedCards);
+});
+
+categoryInput.addEventListener("change", () => {
+  totalInMonthOutput.textContent = "";
+  const categorySelected = categoryInput.value;
+
+  const filteredCardsCategory = cards.filter(
+    (card) => card.category === categorySelected
+  );
+
+  const totalInCategory = filteredCardsCategory.reduce(
+    (acc, currentValue) => acc + Number(currentValue.amount),
+    0
+  );
+  console.log(totalInCategory);
+  categoryOutputText.textContent = `Kategori utgifter: ${totalInCategory}`;
+
+  buildPage(filteredCardsCategory);
+});
 const buildPage = (cards) => {
   cardsContainer.replaceChildren();
 
@@ -114,7 +159,7 @@ const buildPage = (cards) => {
 const editButton = (card, date, category, selectForm, amount, notes) => {
   const editButton = document.createElement("button");
   editButton.classList.add("edit-button");
-  editButton.textContent = "Edit";
+  editButton.textContent = "Rediger";
 
   editButton.addEventListener("click", () => {
     console.log(selectForm);
@@ -127,7 +172,7 @@ const editButton = (card, date, category, selectForm, amount, notes) => {
       category.style.display = "none";
       selectForm.style.display = "inline-block";
 
-      editButton.textContent = "Save";
+      editButton.textContent = "Lagre";
     } else {
       // SAVE MODE
       card.date = date.value;
@@ -144,17 +189,22 @@ const editButton = (card, date, category, selectForm, amount, notes) => {
       category.style.display = "inline-block";
       selectForm.style.display = "none";
 
-      editButton.textContent = "Edit";
+      editButton.textContent = "Rediger";
       saveCardsToStorage();
     }
   });
   return editButton;
 };
 
+resetBtn.addEventListener("click", () => {
+  categoryOutputText.textContent = "";
+  totalInMonthOutput.textContent = "";
+  renderPage();
+});
 const deleteButton = (card) => {
   const deleteButton = document.createElement("button");
   deleteButton.classList.add("delete-button");
-  deleteButton.textContent = "Delete";
+  deleteButton.textContent = "Slett";
 
   deleteButton.addEventListener("click", () => {
     const cardIndex = cards.indexOf(card);

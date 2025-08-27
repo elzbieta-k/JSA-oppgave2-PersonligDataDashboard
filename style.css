@@ -5,7 +5,7 @@
 }
 
 body {
-  max-width: 90vw;
+  max-width: 100vw;
   margin: 0 auto;
   font-family: "Lexend Deca", sans-serif;
   color: #333745;
@@ -13,13 +13,17 @@ body {
 
 header {
   width: 100%;
-  height: 40vh;
+  padding: 20px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
   background-color: #c7efcf;
+}
+
+.description {
+  text-align: center;
 }
 
 .forms {
@@ -101,7 +105,10 @@ select#ny-category-select {
 }
 
 select#month,
-select#category {
+select#year,
+select#category,
+select#sort,
+select#category-selected {
   padding: 5px;
   font-family: "Lexend Deca", sans-serif;
   color: #333745;
@@ -121,6 +128,11 @@ input#notes {
   font-family: "Lexend Deca", sans-serif;
   color: #333745;
 }
+
+.select-container {
+  display: flex;
+  justify-content: space-between;
+}
 .card-container {
   width: 50vw;
   display: flex;
@@ -132,7 +144,8 @@ input#notes {
 }
 
 .delete-button,
-.edit-button {
+.edit-button,
+.reset-button {
   padding: 5px;
   font-family: "Lexend Deca", sans-serif;
   color: #333745;
@@ -146,4 +159,8 @@ input#notes {
 
 .edit-button {
   background-color: #fe5f55;
+}
+
+p {
+  padding-top: 10px;
 }

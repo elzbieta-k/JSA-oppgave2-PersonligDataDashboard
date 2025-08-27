@@ -17,12 +17,12 @@
     <header>
       <div class="description">
         <h1>SmartPenger</h1>
-        <p>Description</p>
+        <p>Få oversikt over dine utgifter og se hvor pengene går hver måned.</p>
       </div>
       <div class="forms">
         <form id="form">
           <fieldset>
-            <legend>Logg din budsjett</legend>
+            <legend>Legg til utgift</legend>
             <label for="date">Dato:</label>
             <input type="date" name="date" placeholder="velg dato" id="date" />
             <label for="category">Kategori:</label>
@@ -46,26 +46,58 @@
             />
           </fieldset>
         </form>
-        <form id="filter-by-month">
-          <label for="month">Velg måned:</label>
-          <select name="month" id="month">
-            <option value="0">Januar</option>
-            <option value="1">Februar</option>
-            <option value="2">Mars</option>
-            <option value="3">April</option>
-            <option value="4">Mai</option>
-            <option value="5">Juni</option>
-            <option value="6">Juli</option>
-            <option value="7">August</option>
-            <option value="8">September</option>
-            <option value="9">Oktober</option>
-            <option value="10">November</option>
-            <option value="11">Desember</option>
-          </select>
-          <input type="submit" value="Send" />
-        </form>
-        <div id="output">
-          <p id="#output-text"></p>
+        <div class="select-container">
+          <div class="select-by-month">
+            <form id="filter-by-month">
+              <label for="month">Velg måned:</label>
+              <select name="month" id="month">
+                <option value="0">Januar</option>
+                <option value="1">Februar</option>
+                <option value="2">Mars</option>
+                <option value="3">April</option>
+                <option value="4">Mai</option>
+                <option value="5">Juni</option>
+                <option value="6">Juli</option>
+                <option value="7">August</option>
+                <option value="8">September</option>
+                <option value="9">Oktober</option>
+                <option value="10">November</option>
+                <option value="11">Desember</option>
+              </select>
+              <select name="year" id="year">
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+              </select>
+              <input type="submit" value="Send" />
+            </form>
+            <div id="output">
+              <p id="output-text"></p>
+            </div>
+          </div>
+          <div id="select-by-category">
+            <label for="category-selected">Kategori:</label>
+            <select name="category-selected" id="category-selected" required>
+              <option value="Dagligvarer">Dagligvarer</option>
+              <option value="Transport">Transport</option>
+              <option value="Bolig">Bolig</option>
+              <option value="Helse">Helse</option>
+              <option value="Regninger">Regninger</option>
+              <option value="Gaver">Personlig</option>
+            </select>
+            <div>
+              <p id="output-category"></p>
+            </div>
+          </div>
+          <div class="sort-form">
+            <label for="sort">Sorter etter:</label>
+            <select id="sort">
+              <option value="date-asc">Dato ↑</option>
+              <option value="date-desc">Dato ↓</option>
+            </select>
+          </div>
+          <div id="reset-button">
+            <button class="reset-button">Reset</button>
+          </div>
         </div>
       </div>
     </header>
