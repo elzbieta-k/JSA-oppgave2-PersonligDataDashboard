@@ -23,32 +23,40 @@
         <form id="form">
           <fieldset>
             <legend>Legg til utgift</legend>
-            <label for="date-input">Dato:</label>
-            <input
-              type="date"
-              name="date"
-              placeholder="velg dato"
-              id="date-input"
-            />
-            <label for="category-input">Kategori:</label>
-            <select name="category" id="category-input" required>
-              <option value="Dagligvarer">Dagligvarer</option>
-              <option value="Transport">Transport</option>
-              <option value="Bolig">Bolig</option>
-              <option value="Helse">Helse</option>
-              <option value="Regninger">Regninger</option>
-              <option value="Gaver">Personlig</option>
-            </select>
-            <label for="amount-input">Beløp:</label>
-            <input type="number" min="0" name="amount" id="amount-input" />
-            <label for="notes-input">Beskrivelse:</label>
-            <input type="text" id="notes-input" name="notes" />
-            <input
-              type="submit"
-              name="submit-button"
-              value="Send"
-              id="submit-button"
-            />
+            <div>
+              <label for="date-input">Dato:</label>
+              <input
+                type="date"
+                name="date"
+                placeholder="velg dato"
+                id="date-input"
+              />
+            </div>
+            <div>
+              <label for="category-input">Kategori:</label>
+              <select name="category" id="category-input" required>
+                <option value="Dagligvarer">Dagligvarer</option>
+                <option value="Transport">Transport</option>
+                <option value="Bolig">Bolig</option>
+                <option value="Helse">Helse</option>
+                <option value="Regninger">Regninger</option>
+                <option value="Gaver">Personlig</option>
+              </select>
+            </div>
+            <div>
+              <label for="amount-input">Beløp:</label>
+              <input type="number" min="0" name="amount" id="amount-input" />
+            </div>
+            <div>
+              <label for="notes-input">Beskrivelse:</label>
+              <input type="text" id="notes-input" name="notes" />
+              <input
+                type="submit"
+                name="submit-button"
+                value="Send"
+                id="submit-button"
+              />
+            </div>
           </fieldset>
         </form>
         <div class="select-container">
