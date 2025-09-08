@@ -77,7 +77,7 @@ input[type="number"] {
 }
 
 input[type="date"] {
-  width: 110px;
+  width: 120px;
   height: 30px;
   background-color: transparent;
   border-radius: 4px;
@@ -92,7 +92,7 @@ input[type="submit"] {
   padding: 5px;
   font-family: "Lexend Deca", sans-serif;
   color: #333745;
-  width: 60px;
+  width: 70px;
   font-weight: bold;
   border-radius: 4px;
 }
@@ -181,11 +181,32 @@ p {
     align-items: flex-start;
     justify-content: flex-start;
   }
+
+  .select-container {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 720px) {
   .card-container {
     flex-wrap: wrap;
     justify-content: flex-start;
+    max-width: 95vw;
+  }
+
+  input[type="number"] {
+    width: 50px;
+  }
+
+  span {
+    width: 120px;
+  }
+
+  .card-container input[type="date"] {
+    width: 90px;
+  }
+
+  .card-container input[type="text"] {
+    width: 120px;
   }
 }

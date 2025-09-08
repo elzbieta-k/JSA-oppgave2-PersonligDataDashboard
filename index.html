@@ -53,12 +53,18 @@
               <input
                 type="submit"
                 name="submit-button"
-                value="Send"
+                value="Legg til"
                 id="submit-button"
               />
             </div>
           </fieldset>
         </form>
+        <div class="Info">
+          <h4>
+            Filtrer utgiftene dine etter måned, år og kategori – velg Alle for å
+            se alt.
+          </h4>
+        </div>
         <div class="select-container">
           <div class="select-by-month">
             <form id="filter-by-month">
@@ -82,28 +88,24 @@
                 <option value="2024">2024</option>
                 <option value="2025">2025</option>
               </select>
-              <input type="submit" value="Send" />
+              <label for="category-selected">Kategori:</label>
+              <select
+                name="category-selected-name"
+                id="category-selected"
+                required
+              >
+                <option value="Alle">Alle</option>
+                <option value="Dagligvarer">Dagligvarer</option>
+                <option value="Transport">Transport</option>
+                <option value="Bolig">Bolig</option>
+                <option value="Helse">Helse</option>
+                <option value="Regninger">Regninger</option>
+                <option value="Gaver">Personlig</option>
+              </select>
+              <input type="submit" value="Filtrer" />
             </form>
             <div id="output">
               <p id="output-text"></p>
-            </div>
-          </div>
-          <div id="select-by-category">
-            <label for="category-selected">Kategori:</label>
-            <select
-              name="category-selected-name"
-              id="category-selected"
-              required
-            >
-              <option value="Dagligvarer">Dagligvarer</option>
-              <option value="Transport">Transport</option>
-              <option value="Bolig">Bolig</option>
-              <option value="Helse">Helse</option>
-              <option value="Regninger">Regninger</option>
-              <option value="Gaver">Personlig</option>
-            </select>
-            <div>
-              <p id="output-category"></p>
             </div>
           </div>
           <div class="sort-form">

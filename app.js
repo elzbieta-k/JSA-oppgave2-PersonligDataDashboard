@@ -28,11 +28,12 @@ form.addEventListener("submit", (e) => {
     date: dateInput,
     amount: amountInput,
     category: categoryInput,
-    notes: notesInput,
+    notes: notesInput.toUpperCase(),
   });
 
   saveCardsToStorage();
   renderPage();
+  form.reset();
 });
 
 //Function to send data to localStorage
@@ -40,24 +41,27 @@ const saveCardsToStorage = () => {
   localStorage.setItem("budget", JSON.stringify(cards));
 };
 
-//Filtering data by month and sending total amount for chosen month
+//Filtering data by month, year and category and sending total amount for chosen month
 filterByMonthForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  categoryOutputText.textContent = "";
 
   const formFilterData = new FormData(filterByMonthForm);
 
   const selectedMonth = parseInt(formFilterData.get("month"), 10);
   const selectedYear = parseInt(formFilterData.get("year"), 10);
+  const selectedCategory = formFilterData.get("category-selected-name");
 
-  const filteredCards = cards.filter((card) => {
+  cards = cards.filter((card) => {
     const date = new Date(card.date);
+    const matchesCategory =
+      selectedCategory === "Alle" || card.category === selectedCategory;
     return (
-      date.getMonth() === selectedMonth && date.getFullYear() === selectedYear
+      date.getMonth() === selectedMonth &&
+      date.getFullYear() === selectedYear &&
+      matchesCategory
     );
   });
-
-  const totalAmount = filteredCards.reduce(
+  const totalAmount = cards.reduce(
     (acc, currentValue) => acc + Number(currentValue.amount),
     0
   );
@@ -65,15 +69,12 @@ filterByMonthForm.addEventListener("submit", (e) => {
   totalInMonthOutput.textContent =
     totalAmount === 0
       ? `Ingen registrerte utgifter denne måneden`
-      : `Månedens utgifter: ${totalAmount}`;
-  buildPage(filteredCards);
+      : `Totalt utgifter for valgt periode og kategori: ${totalAmount}`;
+  buildPage(cards);
 });
 
 //Sorting data by date in ascending or decending order
 sortForm.addEventListener("change", () => {
-  categoryOutputText.textContent = "";
-  totalInMonthOutput.textContent = "";
-
   const sortSelected = sortForm.value;
 
   let sortedCards = [...cards];
@@ -85,25 +86,6 @@ sortForm.addEventListener("change", () => {
   }
 
   buildPage(sortedCards);
-});
-
-// Filtering data by category and sending total amount for chosen category
-categoryInput.addEventListener("change", () => {
-  totalInMonthOutput.textContent = "";
-  const categorySelected = categoryInput.value;
-
-  const filteredCardsCategory = cards.filter(
-    (card) => card.category === categorySelected
-  );
-
-  const totalInCategory = filteredCardsCategory.reduce(
-    (acc, currentValue) => acc + Number(currentValue.amount),
-    0
-  );
-
-  categoryOutputText.textContent = `Kategori utgifter: ${totalInCategory}`;
-
-  buildPage(filteredCardsCategory);
 });
 
 //Function that builds the page
@@ -209,7 +191,6 @@ const editButton = (card, date, category, selectForm, amount, notes) => {
 
 //Reset all filters and getting the original data from localStorage
 resetBtn.addEventListener("click", () => {
-  categoryOutputText.textContent = "";
   totalInMonthOutput.textContent = "";
   renderPage();
 });
