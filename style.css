@@ -12,6 +12,7 @@ body {
   margin: 0 auto;
   font-family: "Lexend Deca", sans-serif;
   color: #333745;
+  background-color: #eef5db;
 }
 
 header {
@@ -43,6 +44,8 @@ fieldset {
   justify-content: space-evenly;
   align-items: center;
   gap: 5px;
+  font-weight: bold;
+  border: 2px solid #333745;
 }
 
 #cards-container {
@@ -95,6 +98,14 @@ input[type="submit"] {
   width: 70px;
   font-weight: bold;
   border-radius: 4px;
+  border: 2px solid #333745;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  border: none;
+  box-shadow: 0 0 3px #333745;
+  font-size: 15px;
 }
 
 span {
@@ -161,6 +172,16 @@ input#notes-input {
   color: #333745;
   border-radius: 4px;
   width: 70px;
+  border: 2px solid #333745;
+  cursor: pointer;
+}
+
+.delete-button:hover,
+.edit-button:hover,
+.reset-button:hover {
+  border: none;
+  box-shadow: 0 0 3px #333745;
+  font-size: 15px;
 }
 
 .delete-button {
